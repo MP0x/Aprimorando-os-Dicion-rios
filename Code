@@ -1,0 +1,52 @@
+jogadores = dict ()
+gols = list()
+tudo = list()
+while True:
+    jogadores.clear()
+    gols.clear()
+    jogadores['nome'] = input('Nome do jogador: ').title().strip()
+    partida = int(input(f'Quantas partidas {jogadores["nome"]} jogou? '))
+    qtd = 0
+    for n in range(0, partida):
+        x = (int(input(f'Quantos gols na partida {n+1}? ')))
+        gols.append(x)
+        qtd = qtd + x
+    #ou somar a lista para acrescentar ao total dentro do dicionário
+    #jogador['total'] = sum(gols)
+    jogadores['gols'] = gols[:]
+    jogadores['total'] = qtd
+    tudo.append(jogadores.copy())
+    while True:
+        opc = input('Deseja continuar? [S/N] ').upper()[0]
+        if opc in 'SN':
+            break
+        print('Erro!! Digite somente S ou N.')
+    if opc in 'N':
+        break
+print('='*50)
+#print(f'{"cod"} {"nome":>2} {"gols":>12} {"total":>18}' )
+print('cod ', end='')
+for i in jogadores.keys():
+    print(f'{i:<15}', end='')
+print()
+print('-'*41)
+#for i, n in enumerate(tudo):
+    #print(f' {i} {n["nome"]}      {n["gols"]}        {n["total"]}')
+for k, v in enumerate(tudo):
+    print(f'{k:>3} ', end='')
+    for d in v.values():
+        print(f'{str(d):<15}', end='')
+    print()
+print('-'*41)
+while True:
+    mostra = int(input('Mostrar dados de qual jogador? (999 para parar) '))
+    if mostra == 999:
+        print('<< Volte Sempre >>')
+        break
+    else:
+        if mostra <= len(tudo):
+            print(f'  -- LEVANTAMENTO DO JOGADOR {tudo[mostra]["nome"]}:')
+            for i, v in enumerate(tudo[mostra]["gols"]):
+                print(f'  => No jogo {i+1}, fez {v} gols.')
+        else:
+            print(f"Erro! Não existe jogador com código {mostra}")
